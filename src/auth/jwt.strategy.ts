@@ -7,8 +7,6 @@ import { User } from './user.entity'
 import { UserRepository } from './user.repository'
 import * as config from 'config'
 
-
-
 @Injectable()
 export class JwtSrategy extends PassportStrategy(Strategy) {
     constructor(
