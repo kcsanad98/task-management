@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: task-management.db
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - rdbms_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  api:
+    container_name: task-management.api
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    command: npm run start
+    ports:
+      - 3000:3000
+
+volumes:
+  rdbms_data:
+    driver: local
