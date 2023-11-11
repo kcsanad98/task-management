@@ -1,11 +1,14 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CreateTaskDto, GetTaskDto } from './definitions';
 import { TasksService } from './tasks.service';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('tasks')
 @Controller('users/:userId/tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
+  @ApiOperation({ summary: 'Create task' })
   @Post()
   public async createTask(
     @Param('userId', ParseIntPipe) userId: number,
@@ -14,6 +17,7 @@ export class TasksController {
     return this.tasksService.createTask(userId, task);
   }
 
+  @ApiOperation({ summary: 'List tasks of user' })
   @Get()
   public async listTasksOfUser(
     @Param('userId', ParseIntPipe) userId: number
@@ -21,6 +25,7 @@ export class TasksController {
     return this.tasksService.listTasksOfUser(userId);
   }
 
+  @ApiOperation({ summary: 'Read task' })
   @Get(':taskId')
   public async readTask(
     @Param('userId', ParseIntPipe) userId: number,
@@ -29,6 +34,7 @@ export class TasksController {
     return this.tasksService.readTask(userId, taskId);
   }
 
+  @ApiOperation({ summary: 'Update task' })
   @Put(':taskId')
   public async updateTask(
     @Param('userId', ParseIntPipe) userId: number,
@@ -38,6 +44,7 @@ export class TasksController {
     return this.tasksService.updateTask(userId, taskId, task);
   }
 
+  @ApiOperation({ summary: 'Delete task' })
   @Delete(':taskId')
   public async deleteTask(
     @Param('userId', ParseIntPipe) userId: number,
