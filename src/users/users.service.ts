@@ -20,15 +20,16 @@ export class UsersService {
   }
 
   public async getUserById(id: number) {
-    return this.usersRepository.findOne({ where: { id } });
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException(`User with id [${id}] doesn't exist.`);
+    }
+    return user;
   }
 
   public async updateUser(id: number, user: Partial<CreateUserDto>): Promise<GetUserDto> {
-    const existingUser: User = await this.getUserById(id);
-    if (!existingUser) {
-      throw new NotFoundException();
-    }
-    const updateUserData: User = this.usersRepository.create({ id, ...user });
+    await this.getUserById(id);
+    const updateUserData: User = this.usersRepository.create({ ...user, id });
     return this.usersRepository.save(updateUserData);
   }
 }

@@ -12,9 +12,12 @@ export class Task extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
-  date_time: Date;
+  @Column({ type: 'date' })
+  date_time: string;
 
   @ManyToOne(() => User, user => user.tasks)
   owner: User;
+
+  @Column()
+  ownerId: number;
 }
