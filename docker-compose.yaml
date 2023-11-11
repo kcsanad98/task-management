@@ -22,10 +22,10 @@ services:
     env_file:
       - .env
     command: npm run start
+    ports:
+      - '${API_PORT}:${API_PORT}'
     depends_on:
       - db
-    ports:
-      - 3000:3000
 
 volumes:
   rdbms_data:
