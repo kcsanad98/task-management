@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './definitions';
-import { TasksService } from './tasks.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './task.dto';
+import { TasksService } from './tasks.service';
 
 @ApiTags('tasks')
 @Controller('users/:userId/tasks')

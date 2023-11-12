@@ -1,5 +1,6 @@
 import { User } from 'src/users';
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { TaskStatus } from './definitions';
 
 @Entity()
 export class Task extends BaseEntity {
@@ -14,6 +15,9 @@ export class Task extends BaseEntity {
 
   @Column({ type: 'timestamp' })
   date_time: string;
+
+  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
+  status: TaskStatus;
 
   @ManyToOne(() => User, user => user.tasks)
   owner: User;

@@ -1,4 +1,4 @@
 export * from './tasks.module';
 export * from './task.entity';
-export * from './definitions';
+export * from './task.dto';
 export * from './tasks.service';

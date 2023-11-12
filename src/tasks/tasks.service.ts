@@ -8,8 +8,8 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Task } from './task.entity';
-import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './definitions';
-import { PG_MISSING_PRIMARY_KEY_ERROR_CODE } from 'src/shared/constants';
+import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './task.dto';
+import { PG_MISSING_PRIMARY_KEY_ERROR_CODE } from '../shared/constants';
 
 @Injectable()
 export class TasksService {
