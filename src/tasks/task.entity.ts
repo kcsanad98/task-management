@@ -12,7 +12,7 @@ export class Task extends BaseEntity {
   @Column()
   description: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'timestamp' })
   date_time: string;
 
   @ManyToOne(() => User, user => user.tasks)
