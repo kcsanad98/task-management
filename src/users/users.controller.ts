@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { CreateUserDto, GetUserDto } from './definitions';
+import { CreateUserDto, GetUserDto, UpdateUserDto } from './definitions';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -30,7 +30,7 @@ export class UsersController {
   @Put('/:userId')
   public async updateUser(
     @Param('userId', ParseIntPipe) userId: number,
-    @Body() user: Partial<CreateUserDto>
+    @Body() user: UpdateUserDto
   ): Promise<GetUserDto> {
     return this.usersService.updateUser(userId, user);
   }

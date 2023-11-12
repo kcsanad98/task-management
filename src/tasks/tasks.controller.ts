@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { CreateTaskDto, GetTaskDto } from './definitions';
+import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './definitions';
 import { TasksService } from './tasks.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -39,7 +39,7 @@ export class TasksController {
   public async updateTask(
     @Param('userId', ParseIntPipe) userId: number,
     @Param('taskId', ParseIntPipe) taskId: number,
-    @Body() task: Partial<CreateTaskDto>
+    @Body() task: UpdateTaskDto
   ): Promise<GetTaskDto> {
     return this.tasksService.updateTask(userId, taskId, task);
   }

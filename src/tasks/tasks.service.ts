@@ -8,7 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Task } from './task.entity';
-import { CreateTaskDto, GetTaskDto } from './definitions';
+import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './definitions';
 import { PG_MISSING_PRIMARY_KEY_ERROR_CODE } from 'src/shared/constants';
 
 @Injectable()
@@ -50,7 +50,7 @@ export class TasksService {
   public async updateTask(
     userId: number,
     taskId: number,
-    task: Partial<CreateTaskDto>
+    task: UpdateTaskDto
   ): Promise<GetTaskDto> {
     await this.validateTaskBelongsToUser(userId, taskId);
     const taskData = this.tasksRepository.create({ ...task, id: taskId, ownerId: userId });
