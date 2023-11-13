@@ -13,12 +13,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  const host = process.env['API_HOST'];
-  const port = process.env['API_PORT'];
-
   const config = new DocumentBuilder().setTitle('Task management API').setVersion('1.0').build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  const host = process.env['API_HOST'];
+  const port = process.env['API_PORT'];
 
   await app.listen(port, host);
 }
