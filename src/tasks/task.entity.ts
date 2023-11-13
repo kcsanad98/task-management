@@ -14,7 +14,7 @@ export class Task extends BaseEntity {
   description: string;
 
   @Column({ type: 'timestamp' })
-  date_time: string;
+  date_time: Date;
 
   @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
   status: TaskStatus;

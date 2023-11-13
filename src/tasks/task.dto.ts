@@ -42,10 +42,22 @@ export class UpdateTaskDto {
   status?: TaskStatus;
 }
 
-export class GetTaskDto extends CreateTaskDto {
+export class GetTaskDto {
   @ApiProperty()
   id: number;
 
   @ApiProperty()
   ownerId: number;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiProperty({ type: 'string' })
+  date_time: Date;
+
+  @ApiProperty()
+  status: TaskStatus;
 }

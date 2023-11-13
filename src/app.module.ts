@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users';
 import { TasksModule } from './tasks';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TasksModule } from './tasks';
       }),
       inject: [ConfigService]
     }),
+    ScheduleModule.forRoot(),
     UsersModule,
     TasksModule
   ]
