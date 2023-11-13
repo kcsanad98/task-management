@@ -1,8 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix('/api');
 
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   const config = new DocumentBuilder().setTitle('Task management API').setVersion('1.0').build();
   const document = SwaggerModule.createDocument(app, config);
@@ -23,3 +25,11 @@ async function bootstrap() {
   await app.listen(port, host);
 }
 bootstrap();
+
+const defaultErrorHandler = (error: unknown) => {
+  Logger.error(error, 'Process');
+};
+
+process.on('unhandledRejection', defaultErrorHandler);
+
+process.on('uncaughtException', defaultErrorHandler);
