@@ -4,9 +4,10 @@ import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
 import { TasksController } from './tasks.controller';
 import { TaskMaintenanceService } from './task-maintenance.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Task])],
+  imports: [TypeOrmModule.forFeature([Task]), ConfigModule],
   providers: [TasksService, TaskMaintenanceService],
   controllers: [TasksController]
 })

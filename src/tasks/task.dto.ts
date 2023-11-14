@@ -11,13 +11,14 @@ export class CreateTaskDto {
   @IsString()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: new Date().toISOString() })
   @IsDateString()
   date_time: string;
 
   @ApiProperty()
   @IsEnum(TaskStatus)
-  status: TaskStatus;
+  @IsOptional()
+  status?: TaskStatus;
 }
 
 export class UpdateTaskDto {
