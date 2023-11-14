@@ -2,14 +2,13 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
-  Logger,
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Task } from './task.entity';
 import { CreateTaskDto, GetTaskDto, UpdateTaskDto } from './task.dto';
-import { PG_MISSING_PRIMARY_KEY_ERROR_CODE } from '../shared/constants';
+import { PostgresErrorCodes, doErrorCodesMatch } from '../utils/postgres-errors';
 
 @Injectable()
 export class TasksService {
@@ -37,9 +36,8 @@ export class TasksService {
     });
     try {
       return await this.tasksRepository.save(taskData);
-    } catch (error: unknown) {
-      Logger.error(JSON.stringify(error));
-      if ((error as { code: string })?.code === PG_MISSING_PRIMARY_KEY_ERROR_CODE) {
+    } catch (error) {
+      if (doErrorCodesMatch(error, PostgresErrorCodes.MISSING_PRIMARY_KEY)) {
         throw new BadRequestException(`No user exists with id [${userId}].`);
       } else {
         throw error;

@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Interval } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
 import { Task } from './task.entity';
-import { Interval } from '@nestjs/schedule';
 import { TaskStatus } from './definitions';
 
 const DELETE_EXPIRED_TASKS_INTERVAL = 60 * 1000;
